@@ -1,0 +1,45 @@
+#include <stdio.h>
+#include <string.h>
+#include <time.h>
+
+int main() {
+    char sentence[] = "My name is Riddhi Chauhan.";
+    char input[200];
+    int correct = 0;
+    double time_taken;
+
+    printf("===== Typing Speed Test =====\n\n");
+    printf("Type the following sentence as fast and accurately as you can:\n\n");
+    printf("\"%s\"\n\n", sentence);
+    printf("Press ENTER when you're ready to start...");
+    getchar();
+
+    time_t start, end;
+    start = time(NULL); // Start actual timer
+
+    printf("\nStart typing below:\n");
+    fgets(input, sizeof(input), stdin);
+
+    end = time(NULL); // End timer
+
+    time_taken = difftime(end, start);
+
+    // Calculate accuracy
+    for (int i = 0; i < strlen(sentence); i++) {
+        if (input[i] == sentence[i])
+            correct++;
+    }
+
+    double accuracy = ((double)correct / strlen(sentence)) * 100.0;
+
+    // Calculate words per minute (WPM)
+    double words = strlen(sentence) / 5.0; // Average 5 chars per word
+    double wpm = (words / time_taken) * 60.0;
+
+    printf("\n===== Result =====\n");
+    printf("Time taken: %.2f seconds\n", time_taken);
+    printf("Words per minute: %.2f\n", wpm);
+    printf("Accuracy: %.2f%%\n", accuracy);
+
+    return 0;
+}
